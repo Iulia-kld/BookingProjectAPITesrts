@@ -57,7 +57,7 @@ class APIClient:
             assert response.status_code == 201, f"Expected status code 201 but got {response.status_code}"
         return response.status_code
 
-  @allure.title("API auth check")
+    @allure.title("API auth check")
     def auth(self):
         with allure.step("Setting authenticate"):
             url = f"{self.base_url}{Endpoints.AUTH_ENDPOINT}"
@@ -67,16 +67,15 @@ class APIClient:
         with allure.step("Assert atatus code"):
             assert response.status_code == 200, f"Expected status code 200 but got {response.status_code}"
         token = response.json().get("token")
-       with allure.step("Updating the header with authorization"):
+        with allure.step("Updating the header with authorization"):
            self.session.update({"Authorization": f"Bearer {token}"})
 
-@allure.title("Get booking by id")
-    def get_booking_by_id(self):
+    @allure.title("Get booking by id")
+    def get_booking_by_id(self, id):
         with allure.step("Setting booking"):
-            order_id = id
-            url = f"{self.base_url}{Endpoints.BOOKING_ENDPOINT}/{order_id}"
+            url = f"{self.base_url}{Endpoints.BOOKING_ENDPOINT}/{id}"
             response = self.session.get(url)
             response.raise_for_status()
         with allure.step("Assert atatus code"):
             assert response.status_code == 200, f"Expected status code 200 but got {response.status_code}"
-        return response.status_code
+        return response.json()
