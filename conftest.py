@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
 from unicodedata import digit
 import pytest
+from faker import Faker
 from core.clients.api_client import APIClient
-import Faker
+
 
 @pytest.fixture(scope="session")
 def api_client():
@@ -33,7 +34,7 @@ def generate_random_booking_data(booking_dates):
     data = {
         "firstname": firstname,
         "lastname": lastname,
-        "totalprice": totalprice
+        "totalprice": totalprice,
         "depositpaid": depositpaid,
         "bookingdates":booking_dates,
         "additionalneeds": additionalneeds
